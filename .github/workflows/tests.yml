@@ -36,7 +36,7 @@ jobs:
       - name: Run tests and generate coverage
         run: |
           set -o pipefail
-          pytest -v --cov=registration --cov-branch --cov-report=term-missing --cov-report=xml:coverage.xml tests 2>&1 | tee pytest-results.txt
+          python -m pytest -v --cov=registration --cov-branch --cov-report=term-missing --cov-report=xml:coverage.xml tests 2>&1 | tee pytest-results.txt
 
       - name: Upload test and coverage reports
         if: always()
