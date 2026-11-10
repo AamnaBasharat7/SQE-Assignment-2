@@ -1,0 +1,19 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Hp\OneDrive\Desktop\SQE-Assignment-2\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Hp\OneDrive\Desktop\SQE-Assignment-2
+plugins: cov-7.1.0
+collecting ... collected 10 items
+
+tests/test_whitebox.py::test_WB_C01_valid_capacity_conditions PASSED     [ 10%]
+tests/test_whitebox.py::test_WB_C02_negative_enrollment PASSED           [ 20%]
+tests/test_whitebox.py::test_WB_C03_enrollment_above_capacity PASSED     [ 30%]
+tests/test_whitebox.py::test_WB_C04_zero_capacity PASSED                 [ 40%]
+tests/test_whitebox.py::test_WB01_negative_dues PASSED                   [ 50%]
+tests/test_whitebox.py::test_WB02_dues_block PASSED                      [ 60%]
+tests/test_whitebox.py::test_WB03_duplicate_registration PASSED          [ 70%]
+tests/test_whitebox.py::test_WB04_missing_prerequisite PASSED            [ 80%]
+tests/test_whitebox.py::test_WB05_credit_limit_exceeded PASSED           [ 90%]
+tests/test_whitebox.py::test_WB06_successful_registration PASSED         [100%]
+
+============================= 10 passed in 0.30s ==============================

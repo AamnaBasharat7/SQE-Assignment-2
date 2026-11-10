@@ -1,0 +1,168 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Hp\OneDrive\Desktop\SQE-Assignment-2\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Hp\OneDrive\Desktop\SQE-Assignment-2
+plugins: cov-7.1.0
+collecting ... collected 36 items
+
+tests/test_blackbox.py::test_ECP01_BVA15_zero_dues_allow_registration PASSED [  2%]
+tests/test_blackbox.py::test_ECP02_BVA16_one_rupee_dues_block_registration FAILED [  5%]
+tests/test_blackbox.py::test_ECP03_negative_dues_are_invalid PASSED      [  8%]
+tests/test_blackbox.py::test_ECP04_no_prerequisite_is_valid PASSED       [ 11%]
+tests/test_blackbox.py::test_ECP05_all_prerequisites_completed PASSED    [ 13%]
+tests/test_blackbox.py::test_ECP06_one_prerequisite_missing FAILED       [ 16%]
+tests/test_blackbox.py::test_ECP07_course_not_registered_before PASSED   [ 19%]
+tests/test_blackbox.py::test_ECP08_course_already_registered PASSED      [ 22%]
+tests/test_blackbox.py::test_ECP09_BVA11_one_seat_left PASSED            [ 25%]
+tests/test_blackbox.py::test_ECP10_BVA12_course_at_capacity FAILED       [ 27%]
+tests/test_blackbox.py::test_BVA01_current_credits_at_zero PASSED        [ 30%]
+tests/test_blackbox.py::test_BVA02_current_credits_at_eighteen PASSED    [ 33%]
+tests/test_blackbox.py::test_BVA03_current_credits_below_zero PASSED     [ 36%]
+tests/test_blackbox.py::test_BVA04_current_credits_above_eighteen PASSED [ 38%]
+tests/test_blackbox.py::test_BVA05_course_credit_at_one PASSED           [ 41%]
+tests/test_blackbox.py::test_BVA06_course_credit_at_four FAILED          [ 44%]
+tests/test_blackbox.py::test_BVA07_course_credit_below_one PASSED        [ 47%]
+tests/test_blackbox.py::test_BVA08_course_credit_above_four PASSED       [ 50%]
+tests/test_blackbox.py::test_BVA09_total_credits_exactly_eighteen FAILED [ 52%]
+tests/test_blackbox.py::test_BVA10_total_credits_one_over_limit PASSED   [ 55%]
+tests/test_blackbox.py::test_BVA13_course_enrollment_above_capacity PASSED [ 58%]
+tests/test_blackbox.py::test_BVA14_course_capacity_is_zero PASSED        [ 61%]
+tests/test_blackbox.py::test_DT01_all_conditions_allow_registration PASSED [ 63%]
+tests/test_blackbox.py::test_DT02_dues_have_first_priority FAILED        [ 66%]
+tests/test_blackbox.py::test_DT03_duplicate_has_priority_over_prerequisites PASSED [ 69%]
+tests/test_blackbox.py::test_DT04_prerequisite_has_priority_over_credit_limit PASSED [ 72%]
+tests/test_blackbox.py::test_DT05_credit_limit_has_priority_over_full_seat PASSED [ 75%]
+tests/test_blackbox.py::test_DT06_full_seat_waitlists_eligible_student FAILED [ 77%]
+tests/test_blackbox.py::test_DT07_missing_prerequisite_is_returned PASSED [ 80%]
+tests/test_blackbox.py::test_STATE01_successful_registration_updates_all_values PASSED [ 83%]
+tests/test_blackbox.py::test_STATE02_waitlist_adds_student_without_enrolling FAILED [ 86%]
+tests/test_blackbox.py::test_STATE03_waitlist_does_not_add_same_student_twice PASSED [ 88%]
+tests/test_blackbox.py::test_STATE04_failed_registration_does_not_change_data FAILED [ 91%]
+tests/test_blackbox.py::test_STATE05_withdrawal_updates_student_and_course FAILED [ 94%]
+tests/test_blackbox.py::test_STATE06_unsuccessful_withdrawal_changes_nothing PASSED [ 97%]
+tests/test_blackbox.py::test_STATE07_registration_decision_does_not_change_data PASSED [100%]
+
+================================== FAILURES ===================================
+_____________ test_ECP02_BVA16_one_rupee_dues_block_registration ______________
+
+    def test_ECP02_BVA16_one_rupee_dues_block_registration():
+        student = Student("S02", outstanding_dues=1)
+        course = Course("CS101", 3, 10)
+>       assert registration_decision(student, course) == "DUES_BLOCK"
+E       AssertionError: assert 'REGISTERED' == 'DUES_BLOCK'
+E         
+E         - DUES_BLOCK
+E         + REGISTERED
+
+tests\test_blackbox.py:25: AssertionError
+_____________________ test_ECP06_one_prerequisite_missing _____________________
+
+    def test_ECP06_one_prerequisite_missing():
+>       assert prerequisites_satisfied({"CS101"}, {"CS101", "MA101"}) is False
+E       AssertionError: assert True is False
+E        +  where True = prerequisites_satisfied({'CS101'}, {'CS101', 'MA101'})
+
+tests\test_blackbox.py:44: AssertionError
+_____________________ test_ECP10_BVA12_course_at_capacity _____________________
+
+    def test_ECP10_BVA12_course_at_capacity():
+        student = Student("S10")
+        course = Course("CS101", 3, 10, enrolled=10)
+>       assert registration_decision(student, course) == "WAITLISTED"
+E       AssertionError: assert 'REGISTERED' == 'WAITLISTED'
+E         
+E         - WAITLISTED
+E         + REGISTERED
+
+tests\test_blackbox.py:68: AssertionError
+______________________ test_BVA06_course_credit_at_four _______________________
+
+    def test_BVA06_course_credit_at_four():
+>       assert check_credit_limit(14, 4) is True
+E       assert False is True
+E        +  where False = check_credit_limit(14, 4)
+
+tests\test_blackbox.py:96: AssertionError
+__________________ test_BVA09_total_credits_exactly_eighteen __________________
+
+    def test_BVA09_total_credits_exactly_eighteen():
+>       assert check_credit_limit(15, 3) is True
+E       assert False is True
+E        +  where False = check_credit_limit(15, 3)
+
+tests\test_blackbox.py:110: AssertionError
+_____________________ test_DT02_dues_have_first_priority ______________________
+
+    def test_DT02_dues_have_first_priority():
+        student = Student("S18", outstanding_dues=10, registered_courses={"CS401"})
+        course = Course("CS401", 3, 10, prerequisites={"CS100"})
+>       assert registration_decision(student, course) == "DUES_BLOCK"
+E       AssertionError: assert 'ALREADY_REGISTERED' == 'DUES_BLOCK'
+E         
+E         - DUES_BLOCK
+E         + ALREADY_REGISTERED
+
+tests\test_blackbox.py:142: AssertionError
+_______________ test_DT06_full_seat_waitlists_eligible_student ________________
+
+    def test_DT06_full_seat_waitlists_eligible_student():
+        student = Student("S22")
+        course = Course("CS404", 3, 1, enrolled=1)
+>       assert registration_decision(student, course) == "WAITLISTED"
+E       AssertionError: assert 'REGISTERED' == 'WAITLISTED'
+E         
+E         - WAITLISTED
+E         + REGISTERED
+
+tests\test_blackbox.py:166: AssertionError
+____________ test_STATE02_waitlist_adds_student_without_enrolling _____________
+
+    def test_STATE02_waitlist_adds_student_without_enrolling():
+        student = Student("S25")
+        course = Course("CS502", 3, 1, enrolled=1)
+        result = register_course(student, course)
+>       assert result == "WAITLISTED"
+E       AssertionError: assert 'REGISTERED' == 'WAITLISTED'
+E         
+E         - WAITLISTED
+E         + REGISTERED
+
+tests\test_blackbox.py:191: AssertionError
+____________ test_STATE04_failed_registration_does_not_change_data ____________
+
+    def test_STATE04_failed_registration_does_not_change_data():
+        student = Student("S27", outstanding_dues=5)
+        course = Course("CS504", 3, 10)
+        result = register_course(student, course)
+>       assert result == "DUES_BLOCK"
+E       AssertionError: assert 'REGISTERED' == 'DUES_BLOCK'
+E         
+E         - DUES_BLOCK
+E         + REGISTERED
+
+tests\test_blackbox.py:209: AssertionError
+_____________ test_STATE05_withdrawal_updates_student_and_course ______________
+
+    def test_STATE05_withdrawal_updates_student_and_course():
+        student = Student("S28", current_credits=3, registered_courses={"CS505"})
+        course = Course("CS505", 3, 10, enrolled=1)
+        assert withdraw_course(student, course) is True
+        assert student.registered_courses == set()
+        assert student.current_credits == 0
+>       assert course.enrolled == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = Course(code='CS505', credit_hours=3, capacity=10, enrolled=1, prerequisites=set(), waitlist=[]).enrolled
+
+tests\test_blackbox.py:222: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_blackbox.py::test_ECP02_BVA16_one_rupee_dues_block_registration
+FAILED tests/test_blackbox.py::test_ECP06_one_prerequisite_missing - Assertio...
+FAILED tests/test_blackbox.py::test_ECP10_BVA12_course_at_capacity - Assertio...
+FAILED tests/test_blackbox.py::test_BVA06_course_credit_at_four - assert Fals...
+FAILED tests/test_blackbox.py::test_BVA09_total_credits_exactly_eighteen - as...
+FAILED tests/test_blackbox.py::test_DT02_dues_have_first_priority - Assertion...
+FAILED tests/test_blackbox.py::test_DT06_full_seat_waitlists_eligible_student
+FAILED tests/test_blackbox.py::test_STATE02_waitlist_adds_student_without_enrolling
+FAILED tests/test_blackbox.py::test_STATE04_failed_registration_does_not_change_data
+FAILED tests/test_blackbox.py::test_STATE05_withdrawal_updates_student_and_course
+======================== 10 failed, 26 passed in 0.47s ========================
