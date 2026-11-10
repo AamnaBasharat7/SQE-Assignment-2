@@ -4,138 +4,16 @@ rootdir: C:\Users\Hp\OneDrive\Desktop\SQE-Assignment-2
 plugins: cov-7.1.0
 collected 46 items
 
-tests\test_blackbox.py .F...F...F.....F..F....F...F..F.FF..              [ 78%]
+tests\test_blackbox.py ....................................              [ 78%]
 tests\test_whitebox.py ..........                                        [100%]
 
-================================== FAILURES ===================================
-_____________ test_ECP02_BVA16_one_rupee_dues_block_registration ______________
-
-    def test_ECP02_BVA16_one_rupee_dues_block_registration():
-        student = Student("S02", outstanding_dues=1)
-        course = Course("CS101", 3, 10)
->       assert registration_decision(student, course) == "DUES_BLOCK"
-E       AssertionError: assert 'REGISTERED' == 'DUES_BLOCK'
-E         
-E         - DUES_BLOCK
-E         + REGISTERED
-
-tests\test_blackbox.py:25: AssertionError
-_____________________ test_ECP06_one_prerequisite_missing _____________________
-
-    def test_ECP06_one_prerequisite_missing():
->       assert prerequisites_satisfied({"CS101"}, {"CS101", "MA101"}) is False
-E       AssertionError: assert True is False
-E        +  where True = prerequisites_satisfied({'CS101'}, {'CS101', 'MA101'})
-
-tests\test_blackbox.py:44: AssertionError
-_____________________ test_ECP10_BVA12_course_at_capacity _____________________
-
-    def test_ECP10_BVA12_course_at_capacity():
-        student = Student("S10")
-        course = Course("CS101", 3, 10, enrolled=10)
->       assert registration_decision(student, course) == "WAITLISTED"
-E       AssertionError: assert 'REGISTERED' == 'WAITLISTED'
-E         
-E         - WAITLISTED
-E         + REGISTERED
-
-tests\test_blackbox.py:68: AssertionError
-______________________ test_BVA06_course_credit_at_four _______________________
-
-    def test_BVA06_course_credit_at_four():
->       assert check_credit_limit(14, 4) is True
-E       assert False is True
-E        +  where False = check_credit_limit(14, 4)
-
-tests\test_blackbox.py:96: AssertionError
-__________________ test_BVA09_total_credits_exactly_eighteen __________________
-
-    def test_BVA09_total_credits_exactly_eighteen():
->       assert check_credit_limit(15, 3) is True
-E       assert False is True
-E        +  where False = check_credit_limit(15, 3)
-
-tests\test_blackbox.py:110: AssertionError
-_____________________ test_DT02_dues_have_first_priority ______________________
-
-    def test_DT02_dues_have_first_priority():
-        student = Student("S18", outstanding_dues=10, registered_courses={"CS401"})
-        course = Course("CS401", 3, 10, prerequisites={"CS100"})
->       assert registration_decision(student, course) == "DUES_BLOCK"
-E       AssertionError: assert 'ALREADY_REGISTERED' == 'DUES_BLOCK'
-E         
-E         - DUES_BLOCK
-E         + ALREADY_REGISTERED
-
-tests\test_blackbox.py:142: AssertionError
-_______________ test_DT06_full_seat_waitlists_eligible_student ________________
-
-    def test_DT06_full_seat_waitlists_eligible_student():
-        student = Student("S22")
-        course = Course("CS404", 3, 1, enrolled=1)
->       assert registration_decision(student, course) == "WAITLISTED"
-E       AssertionError: assert 'REGISTERED' == 'WAITLISTED'
-E         
-E         - WAITLISTED
-E         + REGISTERED
-
-tests\test_blackbox.py:166: AssertionError
-____________ test_STATE02_waitlist_adds_student_without_enrolling _____________
-
-    def test_STATE02_waitlist_adds_student_without_enrolling():
-        student = Student("S25")
-        course = Course("CS502", 3, 1, enrolled=1)
-        result = register_course(student, course)
->       assert result == "WAITLISTED"
-E       AssertionError: assert 'REGISTERED' == 'WAITLISTED'
-E         
-E         - WAITLISTED
-E         + REGISTERED
-
-tests\test_blackbox.py:191: AssertionError
-____________ test_STATE04_failed_registration_does_not_change_data ____________
-
-    def test_STATE04_failed_registration_does_not_change_data():
-        student = Student("S27", outstanding_dues=5)
-        course = Course("CS504", 3, 10)
-        result = register_course(student, course)
->       assert result == "DUES_BLOCK"
-E       AssertionError: assert 'REGISTERED' == 'DUES_BLOCK'
-E         
-E         - DUES_BLOCK
-E         + REGISTERED
-
-tests\test_blackbox.py:209: AssertionError
-_____________ test_STATE05_withdrawal_updates_student_and_course ______________
-
-    def test_STATE05_withdrawal_updates_student_and_course():
-        student = Student("S28", current_credits=3, registered_courses={"CS505"})
-        course = Course("CS505", 3, 10, enrolled=1)
-        assert withdraw_course(student, course) is True
-        assert student.registered_courses == set()
-        assert student.current_credits == 0
->       assert course.enrolled == 0
-E       AssertionError: assert 1 == 0
-E        +  where 1 = Course(code='CS505', credit_hours=3, capacity=10, enrolled=1, prerequisites=set(), waitlist=[]).enrolled
-
-tests\test_blackbox.py:222: AssertionError
 =============================== tests coverage ================================
 _______________ coverage: platform win32, python 3.14.7-final-0 _______________
 
 Name              Stmts   Miss Branch BrPart  Cover   Missing
 -------------------------------------------------------------
-registration.py      53      3     26      2    91%   59, 70-71
+registration.py      52      0     24      0   100%
 -------------------------------------------------------------
-TOTAL                53      3     26      2    91%
-=========================== short test summary info ===========================
-FAILED tests/test_blackbox.py::test_ECP02_BVA16_one_rupee_dues_block_registration
-FAILED tests/test_blackbox.py::test_ECP06_one_prerequisite_missing - Assertio...
-FAILED tests/test_blackbox.py::test_ECP10_BVA12_course_at_capacity - Assertio...
-FAILED tests/test_blackbox.py::test_BVA06_course_credit_at_four - assert Fals...
-FAILED tests/test_blackbox.py::test_BVA09_total_credits_exactly_eighteen - as...
-FAILED tests/test_blackbox.py::test_DT02_dues_have_first_priority - Assertion...
-FAILED tests/test_blackbox.py::test_DT06_full_seat_waitlists_eligible_student
-FAILED tests/test_blackbox.py::test_STATE02_waitlist_adds_student_without_enrolling
-FAILED tests/test_blackbox.py::test_STATE04_failed_registration_does_not_change_data
-FAILED tests/test_blackbox.py::test_STATE05_withdrawal_updates_student_and_course
-======================== 10 failed, 36 passed in 1.12s ========================
+TOTAL                52      0     24      0   100%
+Coverage JSON written to file docs/final_coverage.json
+============================= 46 passed in 0.82s ==============================
